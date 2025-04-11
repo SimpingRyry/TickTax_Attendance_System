@@ -18,6 +18,12 @@
 
 <body style="background-color: #EDF1F7;">
 
+
+@auth
+    <p>You are logged in as: {{ Auth::user()->role }}</p>
+@else
+    <p>You are not logged in.</p>
+@endauth
   {{-- Top Navigation --}}
   @include('layouts.top_bar') {{-- Create a partial view: resources/views/partials/top_bar.blade.php --}}
 
@@ -25,12 +31,15 @@
   <div class="offcanvas offcanvas-start bg-white text-dark sidebar-nav" id="offcanvasExample"
     aria-labelledby="offcanvasExampleLabel" style="width: 270px !important;" tabindex="-1">
 
+   
     <div class="offcanvas-body p-0">
       <nav class="navbar-dark">
         <ul class="navbar-nav">
           <li>
             <div class="small fw-bold text-uppercase px-3">CORE</div>
           </li>
+
+
 
           <li>
             <a href="{{ url('/') }}" class="nav-link px-3 active">
@@ -47,12 +56,16 @@
             <div class="small fw-bold text-uppercase px-3">Manage</div>
           </li>
 
+          @if (Auth::user()->role === 'admin')
+
           <li>
             <a href="#" class="nav-link px-3">
               <img src="{{ asset('images/instructor_ico.png') }}" alt="Instructors" width="20" height="20" class="me-2" />
               <span>Instructors</span>
             </a>
           </li>
+
+          @endif
 
           <li>
             <a href="#" class="nav-link px-3">
