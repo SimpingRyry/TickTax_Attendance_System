@@ -42,7 +42,7 @@
 
 
           <li>
-            <a href="{{ url('/') }}" class="nav-link px-3 active">
+            <a href="{{ url('index') }}" class="nav-link px-3">
               <img src="{{ asset('images/dashboard_ico.png') }}" alt="Dashboard" width="20" height="20" class="me-2" />
               <span>Dashboard</span>
             </a>
@@ -59,7 +59,7 @@
           @if (Auth::user()->role === 'admin')
 
           <li>
-            <a href="#" class="nav-link px-3">
+            <a href="#" class="nav-link px-3 active">
               <img src="{{ asset('images/instructor_ico.png') }}" alt="Instructors" width="20" height="20" class="me-2" />
               <span>Instructors</span>
             </a>
@@ -75,14 +75,14 @@
           </li>
 
           <li>
-            <a href="#" class="nav-link px-3">
+            <a href="{{ url('registration') }}" class="nav-link px-3">
               <img src="{{ asset('images/rgistration_ico.png') }}" alt="Registration" width="20" height="20" class="me-2" />
               <span>Registration</span>
             </a>
           </li>
 
           <li>
-            <a href="#" class="nav-link px-3">
+            <a href="{{ url('events') }}" class="nav-link px-3">
               <img src="{{ asset('images/events_ico.png') }}" alt="Events" width="20" height="20" class="me-2" />
               <span>Events</span>
             </a>

@@ -35,6 +35,11 @@ Route::get('/login', function () {
 
 
 });
+Route::get('/profile_page', function () {
+    return view('profile_page'); 
+
+
+});
 Route::get('/index', [IndexController::class, 'index']);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
