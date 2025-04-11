@@ -19,11 +19,7 @@
 <body style="background-color: #EDF1F7;">
 
 
-@auth
-    <p>You are logged in as: {{ Auth::user()->role }}</p>
-@else
-    <p>You are not logged in.</p>
-@endauth
+
   {{-- Top Navigation --}}
   @include('layouts.top_bar') {{-- Create a partial view: resources/views/partials/top_bar.blade.php --}}
 

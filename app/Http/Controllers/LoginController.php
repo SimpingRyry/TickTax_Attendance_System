@@ -20,7 +20,6 @@ class LoginController extends Controller
         // Plain text comparison (not secure, but works for now)
         if ($user && $user->password === $request->password) {
             Auth::login($user);
-            dd(Auth::user());  // This will show the logged-in user data, including role/level
 
             return redirect()->intended('index');
         }
