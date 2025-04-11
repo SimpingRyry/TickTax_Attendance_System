@@ -1,0 +1,372 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+#orgSidebar {
+    position: fixed;
+    top: 0px; /* Adjust this value to move the sidebar down */
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.712); /* Semi-transparent background */
+    color: white;
+    padding-top: 200px;
+    z-index: 1000;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  /* Custom styles for the side panel */
+.org-sidebar {
+    background-color: #343a4000;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+  }
+  
+  .accordion-button {
+    color: white;
+    background-color: #343a4000;
+    border: none;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .accordion-button:focus {
+    outline: none;
+  }
+  
+  .accordion-button:hover {
+    background-color: #495057;
+  }
+  
+  .accordion-item {
+    padding: 5px 0;
+  }
+  
+  
+  #orgSidebar h5 {
+    font-size: 1.25rem;
+  }
+  
+  #orgSidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #orgSidebar ul li {
+    margin: 15px 0;
+  }
+  
+  #orgSidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+  
+  #orgSidebar ul li a:hover {
+    color: #f0a500; /* Highlight color */
+  }
+.navbar {
+    background-color: transparent !important;
+    height: 80px;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 1050;
+}
+/* Default navbar background */
+
+  /* Navbar background color when scrolled */
+  #navbar.scrolled {
+    background-color: #2b2e3183; /* Dark background when scrolled */
+  }
+  
+.navbar-brand {
+    font-weight: 500;
+    color: #fff !important;
+    font-size: 28px;
+    transition: 0.3s color;
+}
+
+.navbar .nav-link {
+    font-size: 18px;
+    color: #fff !important;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+    color: #dddddd !important;
+}
+
+.navbar.scrolled {
+    background-color: #3d3d3d9c !important;
+    box-shadow: 0 4px 6px rgba(83, 83, 83, 0.1);
+}
+
+.login-button {
+    background-color: #63D4D5;
+    color: #000000;
+    font-size: 18px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.login-button:hover {
+    background-color: #88f0f2;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+    color: white !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #000;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background-color: #63D4D5;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before, .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+@media (max-width: 991px) {
+    .offcanvas-body .nav-link {
+        color: black !important;
+    }
+
+    .offcanvas-body .nav-link:hover, 
+    .offcanvas-body .nav-link.active {
+        color: #333 !important;
+    }
+
+    .navbar-toggler {
+        color: white !important;
+    }
+}
+
+
+/* Sidebar on the side (large screen) */
+@media (min-width: 768px) {
+    .org-sidebar {
+        position: fixed; /* Fixed position to keep on the side */
+        top: 0; /* Start from the top */
+        left: 0; /* Stick to the left side */
+        width: 250px;
+        height: 100vh; /* Full height of the viewport */
+    }
+}
+
+/* Responsive: Hide Sidebar on small screens */
+@media (max-width: 768px) {
+    .org-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        box-shadow: none;
+    }
+
+    .org-sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding-bottom: 15px;
+    }
+
+    .org-sidebar ul li {
+        padding: 0;
+    }
+
+    .org-sidebar ul li a {
+        padding: 8px 16px;
+        background-color: #343a40;
+        border-radius: 5px;
+    }
+}
+/* Make carousel images behave like the hero section */
+.carousel-item {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dark overlay effect */
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+/* Ensure carousel controls and indicators are above the overlay */
+.carousel-control-prev,
+.carousel-control-next,
+.carousel-indicators {
+    z-index: 2;
+}
+
+/* Carousel container */
+.carousel-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Keeps overlay content on top */
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+    max-height: 70vh;
+}
+
+.overlay-content h1 {
+    font-size: 40px;
+}
+
+.overlay-content h2 {
+    font-size: 35px;
+}
+
+@media (max-width: 992px) {
+    .overlay-content {
+        width: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    .overlay-content h1 {
+        font-size: 35px;
+    }
+    .overlay-content h2 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay-content {
+        width: 40%;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    .overlay-content h1 {
+        font-size: 30px;
+    }
+    .overlay-content h2 {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 576px) {
+    .overlay-content {
+        width: 80vw;
+        padding: 10px;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    .overlay-content h1 {
+        font-size: 20px;
+    }
+    .overlay-content h2 {
+        font-size: 16px;
+    }
+    .logo-container img {
+        width: 160px;
+    }
+}
+
+/* Specific fix for width 430px */
+@media (max-width: 430px) {
+    .overlay-content h1 {
+        font-size: 16px;
+    }
+}
+
+
+/* Center logo images */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container img {
+    max-width: 200px;
+    height: auto;
+    margin: 0 10px 20px 20px;
+}
+
+.overlay-content h1 {
+    font-size: 280%;
+    font-weight: bold;
+    margin-top: 15px;
+    color: white;
+}
+
+.overlay-content h2 {
+    font-size: 250%;
+    font-weight: bold;
+    margin-top: 15px;
+    color: white;
+}
+
+/* Keep carousel buttons centered */
+.carousel-control-prev, 
+.carousel-control-next {
+    z-index: 3;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

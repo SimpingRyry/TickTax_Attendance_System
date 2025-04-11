@@ -1,0 +1,11 @@
+#main-content {
+    margin-left: 270px; /* sidebar */
+    padding-top: 70px; /* enough space below fixed navbar */
+  }
+  
+  @media (max-width: 991.98px) {
+    #main-content {
+      margin-left: 0;
+      padding-top: 70px;
+    }
+  }

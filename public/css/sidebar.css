@@ -1,0 +1,38 @@
+/* Sidebar Styling */
+.offcanvas {
+  background-color: #FFFFFF !important; /* White background */
+  color: #012970 !important; /* Text color */
+  box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); /* Right shadow */
+  z-index: 1049; /* Lower than navbar */
+  border-right: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+}
+
+/* Ensure 'CORE' text is visible */
+.sidebar-nav .small {
+  color: #012970 !important;
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+/* Adjust Sidebar in Desktop Mode */
+@media (min-width: 992px) {
+  .offcanvas {
+    position: fixed !important;
+    top: 56px; /* Push it down below navbar */
+    height: calc(100% - 56px);
+    width: 270px !important;
+    transform: none !important; /* Ensure it's visible */
+    visibility: visible !important;
+  }
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #012970 !important;
+  color: white !important;
+  border-top-left-radius: 10px;  /* Rounded top-left corner */
+  border-bottom-left-radius: 10px;  /* Rounded bottom-left corner */
+  border-top-right-radius: 0;  /* Keep right side square */
+  border-bottom-right-radius: 0;  /* Keep right side square */
+  display: block;
+  padding-left: 15px; /* Optional: Adjust padding for better alignment */
+}

@@ -1,0 +1,132 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  
+.navbar {
+    background-color: transparent !important;
+    height: 80px;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 0.5rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-brand {
+    font-weight: 500;
+    color: #fff !important;
+    font-size: 28px;
+    transition: 0.3s color;
+}
+
+.navbar .nav-link {
+    font-size: 18px;
+    color: #fff !important;
+    font-weight: 500;
+    position: relative;
+}
+
+.navbar .nav-link:hover, 
+.navbar .nav-link.active {
+    color: #ddd !important;
+}
+.navbar.scrolled {
+    background-color: #3d3d3d9c !important; /* Change this to your desired color */
+    box-shadow: 0 4px 6px rgba(83, 83, 83, 0.1);
+}
+
+.login-button {
+    background-color: #fff;
+    color: #000000;
+    font-size: 18px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.login-button:hover {
+    background-color: #a3a3a3;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+    color: white !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.navbar-toggler:focus, .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #000;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background-color: #63D4D5;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before, .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+@media (max-width: 991px) {
+    .offcanvas-body .nav-link {
+        color: black !important;
+    }
+
+    .offcanvas-body .nav-link:hover, 
+    .offcanvas-body .nav-link.active {
+        color: #333 !important;
+    }
+
+    .navbar-toggler {
+        color: white !important;
+    }
+}
+
+.main-container {
+    height: 100vh;
+    background: url('../images/ITS_HOMEs.png'); /* Replace with actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+  @media (max-width: 768px) {
+    .main-container img {
+      left: 10px; /* Adjust for smaller screens */
+      top: 10px;
+      height: 50px; /* Reduce size on mobile */
+    }
+  }
+  
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }

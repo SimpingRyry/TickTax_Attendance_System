@@ -1,0 +1,14 @@
+.document-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: #6c757d #f8f9fa;
+}
+
+/* Chrome, Edge, Safari scrollbar */
+.document-scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.document-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 4px;
+}

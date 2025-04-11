@@ -1,0 +1,47 @@
+/* Navbar */
+.custom-navbar {
+    background-color: #FFFFFF !important; /* White Background */
+    box-shadow: 
+      -4px 0 6px rgba(0, 0, 0, 0.05), /* Left Shadow */
+       4px 0 6px rgba(0, 0, 0, 0.05),  /* Right Shadow */
+       0 4px 6px rgba(0, 0, 0, 0.1);   /* Bottom Shadow */
+    position: fixed; /* Ensures it stays at the top */
+    width: 100%; /* Full width */
+    z-index: 1050; /* Stays above other elements */
+  }
+  
+  
+  
+  /* Navbar Brand & Logo */
+  .navbar-brand {
+    color: #012970 !important; /* Font Color */
+  }
+  
+  .navbar-logo {
+    height: 40px; /* Adjust size */
+    width: auto;
+    margin-right: 10px; /* Space between logo and text */
+  }
+  
+  /* Navbar Links & Icons */
+  .nav-link, 
+  .profile-text, 
+  .navbar-brand {
+    color: #012970 !important; /* Font and Link Color */
+  }
+  
+  .nav-link svg {
+    fill: #012970 !important; /* SVG Icon Color */
+  }
+  
+  /* Profile Section */
+  .profile-link {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-text {
+    margin-left: 8px;
+    font-weight: 600;
+  }
+  
