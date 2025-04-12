@@ -40,6 +40,12 @@ Route::get('/profile_page', function () {
 
 
 });
+
+Route::get('/logs', function () {
+    return view('logs'); 
+
+
+});
 Route::get('/index', [IndexController::class, 'index']);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
