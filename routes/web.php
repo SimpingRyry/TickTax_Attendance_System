@@ -6,6 +6,7 @@ use App\Http\Controllers\listController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\MemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +42,16 @@ Route::get('/profile_page', function () {
 
 });
 
+<<<<<<< HEAD
 Route::get('/logs', function () {
     return view('logs'); 
 
 
 });
+=======
+Route::post('/memo/store', [MemoController::class, 'store'])->name('memo.store');
+
+>>>>>>> f735d512384c30dc4eb1b1f74af13e78c92981a2
 Route::get('/index', [IndexController::class, 'index']);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
