@@ -1,25 +1,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
-#orgSidebar {
-    position: fixed;
-    top: 0px; /* Adjust this value to move the sidebar down */
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.712); /* Semi-transparent background */
-    color: white;
-    padding-top: 200px;
-    z-index: 1000;
-    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
-  }
-  /* Custom styles for the side panel */
-.org-sidebar {
-    background-color: #343a4000;
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-  }
   
   .accordion-button {
     color: white;
@@ -42,28 +23,7 @@ body {
   }
   
   
-  #orgSidebar h5 {
-    font-size: 1.25rem;
-  }
   
-  #orgSidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  #orgSidebar ul li {
-    margin: 15px 0;
-  }
-  
-  #orgSidebar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-  }
-  
-  #orgSidebar ul li a:hover {
-    color: #f0a500; /* Highlight color */
-  }
 .navbar {
     background-color: transparent !important;
     height: 80px;
@@ -77,7 +37,7 @@ body {
 
   /* Navbar background color when scrolled */
   #navbar.scrolled {
-    background-color: #2b2e3183; /* Dark background when scrolled */
+    background-color: #fafdff83; /* Dark background when scrolled */
   }
   
 .navbar-brand {
@@ -120,14 +80,18 @@ body {
 }
 
 .navbar-toggler {
-    border: none;
+    display: block !important;  /* Force it to always show */
     font-size: 1.25rem;
-    color: white !important;
-}
-
-.navbar-toggler-icon {
-    filter: invert(1);
-}
+    color: rgb(245, 0, 0) !important;  /* Custom color */
+    background: transparent;  /* Ensure button background is clear */
+    border: none;  /* Remove any borders */
+    z-index: 1050;  /* Ensure it stays above other content */
+  }
+  
+  /* Ensure the navbar-toggler icon color is adjusted */
+  .navbar-toggler-icon {
+    filter: invert(1) !important; /* Make sure the icon color is white */
+  }
 
 .navbar-toggler:focus, .btn-close:focus {
     box-shadow: none;
@@ -167,6 +131,7 @@ body {
 @media (max-width: 991px) {
     .offcanvas-body .nav-link {
         color: black !important;
+        position: fixed;
     }
 
     .offcanvas-body .nav-link:hover, 
@@ -179,46 +144,15 @@ body {
     }
 }
 
+/* Ensure navbar-toggler is visible on all screen sizes */
+@media (max-width: 991px) {
+    .navbar-toggler {
+        display: block !important; /* Always show the button */
+    }
+}
 
 /* Sidebar on the side (large screen) */
-@media (min-width: 768px) {
-    .org-sidebar {
-        position: fixed; /* Fixed position to keep on the side */
-        top: 0; /* Start from the top */
-        left: 0; /* Stick to the left side */
-        width: 250px;
-        height: 100vh; /* Full height of the viewport */
-    }
-}
 
-/* Responsive: Hide Sidebar on small screens */
-@media (max-width: 768px) {
-    .org-sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        box-shadow: none;
-    }
-
-    .org-sidebar ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        padding-bottom: 15px;
-    }
-
-    .org-sidebar ul li {
-        padding: 0;
-    }
-
-    .org-sidebar ul li a {
-        padding: 8px 16px;
-        background-color: #343a40;
-        border-radius: 5px;
-    }
-}
-/* Make carousel images behave like the hero section */
 .carousel-item {
     position: relative;
     width: 100%;
@@ -370,3 +304,86 @@ footer {
     bottom: 0;
     width: 100%;
 }
+#customSidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* hidden initially */
+    width: 250px;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    z-index: 2000;
+    transition: right 0.3s ease;
+    padding: 70px 15px 20px;
+    overflow-y: auto;
+  }
+  
+  #customSidebar.show {
+    right: 0;
+  }
+  
+  #customSidebar ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  #customSidebar li {
+    margin-bottom: 15px;
+  }
+  
+  #customSidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+  }
+  
+  /* Hide nav menu in large screens, show only orgs */
+  @media (min-width: 992px) {
+    #customSidebar .sidebar-nav {
+      display: none;
+    }
+  }
+  
+  /* Show full menu and orgs in smaller screens */
+  @media (max-width: 991.98px) {
+    #customSidebar .sidebar-nav {
+      display: block;
+    }
+  }
+  .sidebar-orgs li {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .sidebar-orgs a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  
+  .sidebar-orgs img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+  }
+  
+  .dropdown-org-children {
+    display: none;
+    margin-left: 25px;
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .dropdown-org-parent.active .dropdown-org-children {
+    display: block;
+  }
+  
+  .dropdown-toggle-org {
+    cursor: pointer;
+    font-weight: 600;
+  }
