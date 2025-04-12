@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,65 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/document_scroll.css') }}">
 
+    <style>
+        /* Make calendar text, dates, and numbers black */
+        #calendar .fc-daygrid-day-number,
+        #calendar .fc-col-header-cell-cushion,
+        #calendar .fc-toolbar-title,
+        #calendar .fc-daygrid-day-frame,
+        #calendar td,
+        #calendar th {
+            color: black !important;
+        }
+
+        /* Set top bar background and border */
+        #calendar .fc-toolbar {
+            background-color: black !important;
+            border: 1px solid black;
+            padding: 10px;
+            border-radius: 0;
+        }
+
+        /* Make toolbar title and buttons white for visibility on black bg */
+        #calendar .fc-toolbar-title,
+        #calendar .fc-button {
+            color: white !important;
+        }
+
+        /* General button resize */
+        #calendar .fc-button {
+            padding: 4px 10px;
+            font-size: 14px;
+            background-color: #333;
+            border: 1px solid white;
+        }
+
+        /* Responsive tweaks for smaller screens */
+        @media (max-width: 576px) {
+            #calendar .fc-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #calendar .fc-toolbar .fc-toolbar-chunk {
+                margin-bottom: 5px;
+            }
+
+            #calendar .fc-button {
+                padding: 3px 8px;
+                font-size: 12px;
+            }
+
+            #calendar .fc-toolbar-title {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+        }
+    </style>
+
+
 </head>
+
 <body>
 
     <!------------------------------------------------------ NAVBAR -------------------------------------------------------->
@@ -38,7 +97,9 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li class="my-4"><hr class="border-secondary" /></li>
+                    <li class="my-4">
+                        <hr class="border-secondary" />
+                    </li>
                     <li>
                         <div class="small fw-bold text-uppercase px-3">Manage</div>
                     </li>
@@ -101,73 +162,55 @@
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" id="addEventModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+                <!-- Add Memo Modal -->
+                <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
+                        <form action="{{ route('memo.store') }}" method="POST" enctype="multipart/form-data" class="modal-content">
+                            @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addEventModalLabel">Add New Event</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="mb-3">
-                                <label for="memoImage" class="form-label">Upload Memo Image</label>
-                                <input class="form-control" type="file" id="memoImage" accept="image/*">
-                            </div>
-                            <div class="mb-3 text-end">
-                                <button id="extractBtn" class="btn btn-primary">Extract Text</button>
+                                <h5 class="modal-title">Add New Memo Event</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
 
-                            <!-- OCR Loading Spinner -->
-                            <div id="loadingSpinner" class="text-center d-none">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Processing...</span>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="memo_image" class="form-label">Upload Memo Image</label>
+                                    <input class="form-control" type="file" name="memo_image" accept="image/*" required>
                                 </div>
-                                <p class="mt-2">Extracting text from image...</p>
+                                <div class="mb-3">
+                                    <label class="form-label">Memorandum No.</label>
+                                    <input type="text" name="memo_no" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Series</label>
+                                    <input type="text" name="series" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">To/For:</label>
+                                    <input type="text" name="to_for" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">From:</label>
+                                    <input type="text" name="from" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Subject:</label>
+                                    <input type="text" name="subject" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Venue:</label>
+                                    <input type="text" name="venue" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Date:</label>
+                                    <input type="date" name="date" class="form-control">
+                                </div>
                             </div>
 
-                            <!-- Modal to Display Extracted Info -->
-                            <div class="modal fade" id="extractedInfoModal" tabindex="-1" aria-labelledby="extractedInfoLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="extractedInfoLabel">Extracted Memo Information</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="mb-2">
-                                                    <label class="form-label">Memorandum No.</label>
-                                                    <input type="text" class="form-control" id="memoNo" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">Series</label>
-                                                    <input type="text" class="form-control" id="series" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">To/For:</label>
-                                                    <input type="text" class="form-control" id="toFor" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">From:</label>
-                                                    <input type="text" class="form-control" id="from" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">Subject:</label>
-                                                    <input type="text" class="form-control" id="subject" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">Venue:</label>
-                                                    <input type="text" class="form-control" id="venue" readonly>
-                                                </div>
-                                                <div class="mb-2">
-                                                    <label class="form-label">Date:</label>
-                                                    <input type="text" class="form-control" id="date" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save Memo</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -175,8 +218,8 @@
                 <div class="row">
                     <div class="col-12 mb-4">
                         <div class="card shadow">
-                            <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0">Event Calendar</h5>
+                            <div class="card-header text-dark" style="background-color: white;">
+                                <h3 class="mb-0">Event Calendar</h3>
                             </div>
                             <div class="card-body">
                                 <div id="calendar"></div>
@@ -189,14 +232,35 @@
         </div>
     </main>
 
+    <!-- Memo Success Modal -->
+    <div class="modal fade" id="memoSuccessModal" tabindex="-1" aria-labelledby="memoSuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-success text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="memoSuccessModalLabel">Success</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Memo has been successfully added!
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add necessary JavaScript files here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
-  
+    @if(session('memo_success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var successModal = new bootstrap.Modal(document.getElementById('memoSuccessModal'));
+            successModal.show();
+        });
+    </script>
+    @endif
 
     <script>
-          function adjustSidebar() {
+        function adjustSidebar() {
             const navbar = document.querySelector('.navbar');
             const sidebar = document.getElementById("offcanvasExample");
 
@@ -223,7 +287,6 @@
                 `;
             }
         }
-
     </script>
 
     <script>
@@ -246,62 +309,66 @@
         });
     </script>
 
-<script>
-document.getElementById('extractBtn').addEventListener('click', function () {
-    const imageInput = document.getElementById('memoImage');
-    const file = imageInput.files[0];
+    <script>
+        document.getElementById('extractBtn').addEventListener('click', function() {
+            const imageInput = document.getElementById('memoImage');
+            const file = imageInput.files[0];
 
-    if (!file) {
-        alert('Please upload an image first.');
-        return;
-    }
+            if (!file) {
+                alert('Please upload an image first.');
+                return;
+            }
 
-    // Show loading
-    document.getElementById('loadingSpinner').classList.remove('d-none');
+            // Show loading
+            document.getElementById('loadingSpinner').classList.remove('d-none');
 
-    Tesseract.recognize(
-        file,
-        'eng',
-        {
-            logger: m => console.log(m)
-        }
-    ).then(({ data: { text } }) => {
-        console.log('Extracted Text:', text);
+            Tesseract.recognize(
+                file,
+                'eng', {
+                    logger: m => console.log(m)
+                }
+            ).then(({
+                data: {
+                    text
+                }
+            }) => {
+                console.log('Extracted Text:', text);
 
-        // Hide loading spinner
-        document.getElementById('loadingSpinner').classList.add('d-none');
+                // Hide loading spinner
+                document.getElementById('loadingSpinner').classList.add('d-none');
 
-        // Extract fields with regex
-        const memoNo = text.match(/Memorandum\s*[:\-]\s*(.+)/i);
-        const series = text.match(/Series\s*[:\-]\s*(.+)/i);
-        const toFor = text.match(/To\/For\s*[:\-]\s*(.+)/i);
-        const from = text.match(/From\s*[:\-]\s*(.+)/i);
-        const subject = text.match(/Subject\s*[:\-]\s*(.+)/i);
-        const venue = text.match(/Venue\s*[:\-]\s*(.+)/i);
-        const date = text.match(/Date\s*[:\-]\s*(.+)/i);
+                // Extract fields with regex
+                const memoNo = text.match(/Memorandum\s*[:\-]\s*(.+)/i);
+                const series = text.match(/Series\s*[:\-]\s*(.+)/i);
+                const toFor = text.match(/To\/For\s*[:\-]\s*(.+)/i);
+                const from = text.match(/From\s*[:\-]\s*(.+)/i);
+                const subject = text.match(/Subject\s*[:\-]\s*(.+)/i);
+                const venue = text.match(/Venue\s*[:\-]\s*(.+)/i);
+                const date = text.match(/Date\s*[:\-]\s*(.+)/i);
 
-        alert(memoNo)
+                alert(memoNo)
 
-        // Populate form fields
-        document.getElementById('memoNo').value = memoNo ? memoNo[1].trim() : '';
-        document.getElementById('series').value = series ? series[1].trim() : '';
-        document.getElementById('toFor').value = toFor ? toFor[1].trim() : '';
-        document.getElementById('from').value = from ? from[1].trim() : '';
-        document.getElementById('subject').value = subject ? subject[1].trim() : '';
-        document.getElementById('venue').value = venue ? venue[1].trim() : '';
-        document.getElementById('date').value = date ? date[1].trim() : '';
+                // Populate form fields
+                document.getElementById('memoNo').value = memoNo ? memoNo[1].trim() : '';
+                document.getElementById('series').value = series ? series[1].trim() : '';
+                document.getElementById('toFor').value = toFor ? toFor[1].trim() : '';
+                document.getElementById('from').value = from ? from[1].trim() : '';
+                document.getElementById('subject').value = subject ? subject[1].trim() : '';
+                document.getElementById('venue').value = venue ? venue[1].trim() : '';
+                document.getElementById('date').value = date ? date[1].trim() : '';
 
-        // Show the extracted info modal
-        const extractedModal = new bootstrap.Modal(document.getElementById('extractedInfoModal'));
-        extractedModal.show();
+                // Show the extracted info modal
+                const extractedModal = new bootstrap.Modal(document.getElementById('extractedInfoModal'));
+                extractedModal.show();
 
-    }).catch(error => {
-        console.error(error);
-        alert('Failed to extract text. Make sure the image is clear.');
-        document.getElementById('loadingSpinner').classList.add('d-none');
-    });
-});
-</script>
+            }).catch(error => {
+                console.error(error);
+                alert('Failed to extract text. Make sure the image is clear.');
+                document.getElementById('loadingSpinner').classList.add('d-none');
+            });
+        });
+    </script>
 
 </body>
+
 </html>
