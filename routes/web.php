@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -6,7 +7,7 @@ use App\Http\Controllers\listController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ImportController;
-use App\Http\Controllers\MemoController;
+use App\Http\Controllers\ScheduleGenerator;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,19 +43,26 @@ Route::get('/profile_page', function () {
 
 });
 
-<<<<<<< HEAD
 Route::get('/logs', function () {
     return view('logs'); 
 
 
 });
-=======
-Route::post('/memo/store', [MemoController::class, 'store'])->name('memo.store');
 
->>>>>>> f735d512384c30dc4eb1b1f74af13e78c92981a2
+Route::get('/template', function () {
+    return view('memo.template'); 
+
+
+});
+
+
 Route::get('/index', [IndexController::class, 'index']);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/login', [HomeController::class, 'showlogin'])->name('login');
+
+
+Route::get('/generate-memo', [ScheduleGenerator::class, 'showForm'])->name('memo.form');
+Route::post('/generate-memo', [ScheduleGenerator::class, 'generatePDF'])->name('generate.memo.pdf');
 
 
